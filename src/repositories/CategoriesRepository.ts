@@ -1,6 +1,7 @@
 import { Category } from "../model/Category";
 
 interface ICreateCategoryDTO {
+    id?: string,
     name: string,
     description: string
 }
@@ -24,12 +25,16 @@ class CategoriesRepository {
         this.categories.push(category);
     }
 
-    list(): Category[]{
+    list(): Category[] {
         return this.categories;
     }
-    findByName(name:string): Category{
+    findByName(name: string): Category {
         const category = this.categories.find((category) => category.name === name);
         return category
+    }
+    selectById(id: string): Category {
+        const selectById = this.categories.find((category) => category.id === id)
+        return selectById
     }
 }
 export { CategoriesRepository }

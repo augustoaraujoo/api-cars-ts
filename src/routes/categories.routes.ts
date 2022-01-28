@@ -20,4 +20,9 @@ categoriesRoutes.get("/", (request, response) => {
     const all = categoriesRepository.list()
     return response.json(all)
 })
+categoriesRoutes.get("/:id", (request, response) => {
+    const { id } = request.params;
+    const selectbyId = categoriesRepository.selectById(id)
+    return response.status(201).json(selectbyId)
+})
 export { categoriesRoutes }
