@@ -2,4 +2,7 @@
 node_modules
 /dist
 tsconfig.json
+tsconfig.json
 package-lock.json
+yarn.lock
+.eslintrc.json
