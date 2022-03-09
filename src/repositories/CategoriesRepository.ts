@@ -1,11 +1,7 @@
 import { Category } from "../model/Category";
+import { ICategoriesRepository,ICategoryDTO } from "./ICategoriesRepository";
 
-interface ICategoryDTO {
-    name: string;
-    description: string;
-}
-
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
 
     private categories: Category[];
 
@@ -38,6 +34,16 @@ class CategoriesRepository {
         const existsID = this.categories.find(category => category.id === id)
         return existsID;
     }
+    deleteCategoryByID(id: string) {
+        const existsCategory = this.categories.find(category => category.id === id)
+
+        const removeCategoryByID = this.categories.splice(Number(existsCategory), 1)
+        console.log(removeCategoryByID);
+
+        return removeCategoryByID
+
+    }
+
 }
 
 export { CategoriesRepository };
