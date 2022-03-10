@@ -1,5 +1,5 @@
 import { Category } from "../model/Category";
-import { ICategoriesRepository,ICategoryDTO } from "./ICategoriesRepository";
+import { ICategoriesRepository, ICategoryDTO } from "./ICategoriesRepository";
 
 class CategoriesRepository implements ICategoriesRepository {
 
@@ -36,8 +36,7 @@ class CategoriesRepository implements ICategoriesRepository {
     }
     deleteCategoryByID(id: string) {
         const existsCategory = this.categories.find(category => category.id === id)
-
-        const removeCategoryByID = this.categories.splice(Number(existsCategory), 1)
+        const removeCategoryByID = this.categories.splice(this.categories.indexOf(existsCategory), 1)
         console.log(removeCategoryByID);
 
         return removeCategoryByID

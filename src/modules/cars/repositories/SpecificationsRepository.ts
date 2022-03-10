@@ -1,0 +1,6 @@
+class SpecificationsRepository {
+
+
+}
+
+export { SpecificationsRepository }

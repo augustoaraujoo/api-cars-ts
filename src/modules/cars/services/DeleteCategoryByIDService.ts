@@ -7,7 +7,7 @@ class DeleteCategoryByIDService {
     constructor(private categoriesRepository: ICategoriesRepository) { }
 
     execute({ id }: IRequest) {
-        return this.categoriesRepository.deleteCategoryByID(id)
+        this.categoriesRepository.deleteCategoryByID(id)
     }
 }
 

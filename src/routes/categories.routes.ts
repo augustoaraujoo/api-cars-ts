@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { CategoriesRepository } from '../repositories/CategoriesRepository';
-import { CreateCategoryService } from '../services/CreateCategoryService';
-import { DeleteCategoryByIDService } from '../services/DeleteCategoryByIDService';
+import { CategoriesRepository } from '../modules/cars/repositories/CategoriesRepository';
+import { CreateCategoryService } from '../modules/cars/services/CreateCategoryService';
+import { DeleteCategoryByIDService } from '../modules/cars/services/DeleteCategoryByIDService';
 
 
 const categoriesRoutes = Router();
