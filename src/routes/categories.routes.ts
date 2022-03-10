@@ -1,23 +1,17 @@
 import { Router } from 'express';
 
 import { CategoriesRepository } from '../modules/cars/repositories/CategoriesRepository';
-import { CreateCategoryService } from '../modules/cars/services/CreateCategoryService';
 import { DeleteCategoryByIDService } from '../modules/cars/services/DeleteCategoryByIDService';
-
+import { createCategoryController } from '../modules/cars/useCases/createCategory/index'
 
 const categoriesRoutes = Router();
 const categoriesRepository = new CategoriesRepository();
+
 // Receber a Requisição
 // Chamar o Serviço
 // retornar 
 categoriesRoutes.post("/", (request, response) => {
-    const { name, description } = request.body;
-
-    const createCategoryService = new CreateCategoryService(categoriesRepository);
-    createCategoryService.execute({ name, description });
-
-    return response.status(201).json(createCategoryService);
-
+    return createCategoryController.handle(request, response);
 });
 
 categoriesRoutes.get("/", (request, response) => {
@@ -41,9 +35,10 @@ categoriesRoutes.get("/:id", (request, response) => {
 
 categoriesRoutes.delete("/:id", (request, response) => {
     const { id } = request.params;
-    
+
     const deleteCategoryByID = new DeleteCategoryByIDService(categoriesRepository);
-    deleteCategoryByID.execute({id});
+    deleteCategoryByID.execute({ id });
+
     return response.status(200).send();
 
 })

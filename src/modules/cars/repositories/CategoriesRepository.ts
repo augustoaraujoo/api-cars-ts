@@ -31,21 +31,24 @@ class CategoriesRepository implements ICategoriesRepository {
     }
 
     listCategoryByID(id: string) {
-        const existsID = this.categories.find(category => category.id === id)
+        const existsID = this.categories.find(category => category.id === id);
         return existsID;
     }
     deleteCategoryByID(id: string) {
-        const existsCategory = this.categories.find(category => category.id === id)
-        const removeCategoryByID = this.categories.splice(this.categories.indexOf(existsCategory), 1)
-        const haveCategoryForDeleting = this.categories.filter(category => category.id.length <= 0)
-        const idDontExistsInCategory = this.categories.find(category => category.id !== id)
+        const existsCategory = this.categories.find(category => category.id === id);
+
+        const removeCategoryByID = this.categories.splice(this.categories.indexOf(existsCategory), 1);
+
+        const haveCategoryForDeleting = this.categories.filter(category => category.id.length <= 0);
+
+        const idDontExistsInCategory = this.categories.find(category => category.id !== id);
+
         if (haveCategoryForDeleting || idDontExistsInCategory) {
-            throw new Error("erro");
-        }
-        console.log(removeCategoryByID);
+            console.log(this.categories);
+            return console.error("error");
+        };
 
-        return removeCategoryByID
-
+        return removeCategoryByID;
     }
 
 }
