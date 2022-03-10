@@ -37,6 +37,11 @@ class CategoriesRepository implements ICategoriesRepository {
     deleteCategoryByID(id: string) {
         const existsCategory = this.categories.find(category => category.id === id)
         const removeCategoryByID = this.categories.splice(this.categories.indexOf(existsCategory), 1)
+        const haveCategoryForDeleting = this.categories.filter(category => category.id.length <= 0)
+        const idDontExistsInCategory = this.categories.find(category => category.id !== id)
+        if (haveCategoryForDeleting || idDontExistsInCategory) {
+            throw new Error("erro");
+        }
         console.log(removeCategoryByID);
 
         return removeCategoryByID
