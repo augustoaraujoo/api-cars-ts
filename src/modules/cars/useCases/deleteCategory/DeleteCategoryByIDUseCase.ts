@@ -1,9 +1,9 @@
-import { ICategoriesRepository } from "../repositories/ICategoriesRepository";
+import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
     id: string;
 }
-class DeleteCategoryByIDService {
+class DeleteCategoryByIDUseCase {
     constructor(private categoriesRepository: ICategoriesRepository) { }
 
     execute({ id }: IRequest) {
@@ -11,4 +11,4 @@ class DeleteCategoryByIDService {
     }
 }
 
-export { DeleteCategoryByIDService }
+export { DeleteCategoryByIDUseCase }
