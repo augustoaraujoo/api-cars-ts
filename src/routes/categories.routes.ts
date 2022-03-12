@@ -4,6 +4,7 @@ import { CategoriesRepository } from '../modules/cars/repositories/implementatio
 import { createCategoryController } from '../modules/cars/useCases/createCategory/index'
 import { listCategoriesController } from '../modules/cars/useCases/listCategories/index';
 import { deleteCategoryController } from '../modules/cars/useCases/deleteCategory';
+import { listCategoryByIDController } from '../modules/cars/useCases/listCategoryByID';
 
 const categoriesRoutes = Router();
 const categoriesRepository = CategoriesRepository.getInstance();
@@ -20,16 +21,7 @@ categoriesRoutes.get("/", (request, response) => {
 });
 
 categoriesRoutes.get("/:id", (request, response) => {
-    const { id } = request.params;
-
-
-    const existsCategoryID = categoriesRepository.listCategoryByID(id)
-    if (!existsCategoryID) {
-        return response.status(500).json('error: category[ID] not exists')
-    }
-
-    return response.status(201).json(existsCategoryID);
-
+    return listCategoryByIDController.handle(request, response);
 });
 
 categoriesRoutes.delete("/:id", (request, response) => {
