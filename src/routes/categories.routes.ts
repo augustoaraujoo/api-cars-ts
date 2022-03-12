@@ -5,6 +5,7 @@ import { createCategoryController } from '../modules/cars/useCases/createCategor
 import { listCategoriesController } from '../modules/cars/useCases/listCategories/index';
 import { deleteCategoryController } from '../modules/cars/useCases/deleteCategory';
 import { listCategoryByIDController } from '../modules/cars/useCases/listCategoryByID';
+import { importCategoryController } from '../modules/cars/useCases/importCategory/index';
 
 const categoriesRoutes = Router();
 
@@ -32,8 +33,6 @@ categoriesRoutes.delete("/:id", (request, response) => {
 })
 
 categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
-    const { file } = request;
-    console.log(file);
-    return response.send();
+    return importCategoryController.handle(request, response);
 })
 export { categoriesRoutes }
