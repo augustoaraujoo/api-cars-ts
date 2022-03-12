@@ -8,7 +8,7 @@ class ImportCategoryUseCase {
         const parseFile = parse();// ler linha por linha
 
         stream.pipe(parseFile)// a cada pedaço lido é passado pelo pipe
-        
+
         parseFile.on("data", async (line) => {
             console.log(line);
         })

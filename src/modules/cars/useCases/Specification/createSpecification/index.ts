@@ -1,6 +1,6 @@
 import { CreateSpecificationUseCase } from './CreateSpecificationUseCase'
 import { CreateSpecificationController } from './CreateSpecificationController'
-import { SpecificationsRepository } from '../../repositories/implementations/SpecificationsRepository';
+import { SpecificationsRepository } from '../../../repositories/implementations/SpecificationsRepository';
 
 
 const specificationsRepository = new SpecificationsRepository();
