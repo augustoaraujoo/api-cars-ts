@@ -1,18 +1,40 @@
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 import { parse } from 'csv-parse';
 import fs from 'fs';
 
+
+interface IImportCategory {
+    name: string;
+    description: string;
+}
+
 class ImportCategoryUseCase {
-    execute(file: Express.Multer.File): void {
-        const stream = fs.createReadStream(file.path)
-        // a cada linha: retorna para uma função/ Arquivo => pipe()
-        const parseFile = parse();// ler linha por linha
+    constructor(private categoriesRepository: ICategoriesRepository) { }
 
-        stream.pipe(parseFile)// a cada pedaço lido é passado pelo pipe
+    loadCategories(file: Express.Multer.File): Promise<IImportCategory[]>{
+        return new Promise((resolve, reject) => {
+            const categories: IImportCategory[] = [];
 
-        parseFile.on("data", async (line) => {
-            console.log(line);
+            const stream = fs.createReadStream(file.path)
+            const parseFile = parse();
+            stream.pipe(parseFile);
+
+            parseFile.on("data", async (line) => {
+                const [name, description] = line;
+                categories.push({ name, description });
+            })
+                //retorno esperando a finalização do parseFile
+                .on("end", () => {
+                    resolve(categories);
+                })
+                .on("error", (err) => {
+                    reject(err);
+                })
         })
-
+    }
+    async execute(file: Express.Multer.File): Promise<void> {
+        const categories = await this.loadCategories(file);
+        console.log(categories);
     }
 }
-export { ImportCategoryUseCase }
+export { ImportCategoryUseCase };
