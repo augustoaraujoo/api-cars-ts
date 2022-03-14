@@ -25,6 +25,8 @@ class ImportCategoryUseCase {
             })
                 //retorno esperando a finalização do parseFile
                 .on("end", () => {
+                    //removendo o arquivo.csv da pasta tmp 
+                    fs.promises.unlink(file.path)
                     resolve(categories);
                 })
                 .on("error", (err) => {
@@ -36,7 +38,7 @@ class ImportCategoryUseCase {
         const categories = await this.loadCategories(file);
         categories.map(async (categories) => {
             const { name, description } = categories;
-            
+
             const existsCategory = this.categoriesRepository.findByName(name);
 
             if (!existsCategory) {
