@@ -8,7 +8,7 @@ class CreateSpecificationController {
         const { name, description } = request.body;
 
         this.createSpecificationUseCase.execute({ name, description });
-
+        
         return response.status(201).json(this.createSpecificationUseCase);
     }
 }

@@ -4,7 +4,7 @@ interface IRequest {
     id: string;
 }
 class DeleteCategoryByIDUseCase {
-    constructor(private categoriesRepository: ICategoriesRepository) { }
+    constructor(private categoriesRepository: ICategoriesRepository ) { }
 
     execute({ id }: IRequest) {
         this.categoriesRepository.deleteCategoryByID(id)
