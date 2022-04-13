@@ -1,64 +1,41 @@
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository, ICategoryDTO } from "../ICategoriesRepository";
-//singleton
+import { getRepository, Repository } from "typeorm";
+
 class CategoriesRepository implements ICategoriesRepository {
 
-    private categories: Category[];
 
-    private static INSTANCE: CategoriesRepository;
+    private repository: Repository<Category>;
 
-    private constructor() {
-        this.categories = [];
+    constructor() {
+        this.repository = getRepository(Category);
     }
-    public static getInstance(): CategoriesRepository {
-        if (!CategoriesRepository.INSTANCE) {
-            CategoriesRepository.INSTANCE = new CategoriesRepository();
-        }
-        return CategoriesRepository.INSTANCE;
-    };
 
-    create({ name, description }: ICategoryDTO): void {
-        const category = new Category();
-
-        Object.assign(category, {
-            name,
+    async create({ name, description }: ICategoryDTO): Promise<void> {
+        const category = this.repository.create({
             description,
-            created_at: new Date(),
+            name,
         })
-
-        this.categories.push(category);
+        await this.repository.save(category);
     }
 
-    list(): Category[] {
-        return this.categories;
+    async list(): Promise<Category[]> {
+        const categories = await this.repository.find();
+        return categories;
     }
 
-    findByName(name: string) {
-        const category = this.categories.find(category => category.name === name);
+    async findByName(name: string): Promise<Category> {
+        const category = await this.repository.findOne({ name });
         return category;
     }
 
-    listCategoryByID(id: string) {
-        const existsID = this.categories.find(category => category.id === id);
-        return existsID;
+    async listCategoryByID(id: string): Promise<Category> {
+        const list = await this.repository.findOne({ id });
+        return list;
     }
-    deleteCategoryByID(id: string) {
-        const existsCategory = this.categories.find(category => category.id === id);
-
-        const removeCategoryByID = this.categories.splice(this.categories.indexOf(existsCategory), 1);
-
-        const haveCategoryForDeleting = this.categories.filter(category => category.id.length <= 0);
-
-        const idDontExistsInCategory = this.categories.find(category => category.id !== id);
-
-        if (haveCategoryForDeleting || idDontExistsInCategory) {
-            console.log(this.categories);
-            return console.error("error");
-        };
-
-        return removeCategoryByID;
+    async deleteCategoryByID(id: string): Promise<void> {
+        await this.repository.delete({ id });
     }
-
 }
 
 export { CategoriesRepository };

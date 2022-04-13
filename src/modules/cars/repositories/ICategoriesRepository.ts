@@ -6,13 +6,13 @@ interface ICategoryDTO {
     description: string;
 }
 interface ICategoriesRepository {
-    list(): Category[];
-    findByName(name: string): Category;
-    create({name, description}: ICategoryDTO): void;
+    create({ name, description }: ICategoryDTO): Promise<void>;
+    list(): Promise<Category[]>;
+    findByName(name: string): Promise<Category>;
 
-    listCategoryByID(id: string): Category;
-    deleteCategoryByID(id: string): void;
+    listCategoryByID(id: string): Promise<Category>;
+    deleteCategoryByID(id: string): Promise<void>;
 
 }
 
-export { ICategoriesRepository,ICategoryDTO }
+export { ICategoriesRepository, ICategoryDTO }
