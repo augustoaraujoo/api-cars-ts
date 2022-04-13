@@ -1,0 +1,14 @@
+{
+    "type": "postgres",
+    "port": 5433,
+    "host": "localhost",
+    "username": "postgres",
+    "password": "root",
+    "database": "rentx",
+    "migrations": [
+        "./src/database/migrations/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/database/migrations"
+    }
+}
