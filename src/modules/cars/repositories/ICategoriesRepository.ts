@@ -1,6 +1,6 @@
 /* SubTipos : CategoriesRepository & PostgresCategoriesRepository */
 
-import { Category } from '../model/Category';
+import { Category } from '../entities/Category';
 interface ICategoryDTO {
     name: string;
     description: string;
