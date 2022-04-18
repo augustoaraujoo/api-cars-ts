@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { DeleteCategoryByIDUseCase } from './DeleteCategoryByIDUseCase';
+import { container } from 'tsyringe';
 
 class DeleteCategoryController {
-    constructor(private deleteCategoryByIDUseCase: DeleteCategoryByIDUseCase) { }
 
-    handle(request: Request, response: Response) {
+    async handle(request: Request, response: Response) {
         const { id } = request.params;
+        const deleteCategoryByIDUseCase = container.resolve(DeleteCategoryByIDUseCase);
 
-        this.deleteCategoryByIDUseCase.execute({ id });
-
+        deleteCategoryByIDUseCase.execute({ id });
         return response.status(200).send();
     }
 }

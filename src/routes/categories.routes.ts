@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import createCategoryController from '../modules/cars/useCases/Category/createCategory/index'
-import { listCategoriesController } from '../modules/cars/useCases/Category/listCategories/index';
-import { deleteCategoryController } from '../modules/cars/useCases/Category/deleteCategory';
-import { listCategoryByIDController } from '../modules/cars/useCases/Category/listCategoryByID';
-import { importCategoryController } from '../modules/cars/useCases/importCategory/index';
+import { CreateCategoryController } from '../modules/cars/useCases/Category/createCategory/CreateCategoryController';
+import { ListCategoriesController } from '../modules/cars/useCases/Category/listCategories/ListCategoriesController';
+import { DeleteCategoryController } from '../modules/cars/useCases/Category/deleteCategory/DeleteCategoryController';
+import { ListCategoryByIDController } from '../modules/cars/useCases/Category/listCategoryByID/listCategoryByIDController';
+import { ImportCategoryController } from '../modules/cars/useCases/importCategory/importCategoryController';
 
 const categoriesRoutes = Router();
 
@@ -16,23 +16,16 @@ const upload = multer({
 // Receber a Requisição
 // Chamar o Serviço
 // retornar 
-categoriesRoutes.post("/", (request, response) => {
-    return createCategoryController().handle(request, response);
-});
+const createCategoryController = new CreateCategoryController();
+const deleteCategoryController = new DeleteCategoryController();
+const listCategoriesController = new ListCategoriesController();
+const listCategoryByIDController = new ListCategoryByIDController();
+const importCategoryController = new ImportCategoryController();
 
-categoriesRoutes.get("/", (request, response) => {
-    return listCategoriesController.handle(request, response);
-});
+categoriesRoutes.post("/", createCategoryController.handle);
+categoriesRoutes.get("/", listCategoriesController.handle);
+categoriesRoutes.get("/:id", listCategoryByIDController.handle);
+categoriesRoutes.delete("/:id", deleteCategoryController.handle);
+categoriesRoutes.post("/import", upload.single("file"), importCategoryController.handle);
 
-categoriesRoutes.get("/:id", (request, response) => {
-    return listCategoryByIDController.handle(request, response);
-});
-
-categoriesRoutes.delete("/:id", (request, response) => {
-    return deleteCategoryController.handle(request, response);
-})
-
-categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
-    return importCategoryController.handle(request, response);
-})
 export { categoriesRoutes }

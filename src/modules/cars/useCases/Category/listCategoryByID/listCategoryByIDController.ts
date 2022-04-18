@@ -1,17 +1,19 @@
 import { Request, Response } from 'express';
 import { ListCategoryByIDUseCase } from './listCategoryByIDUseCase';
+import { container } from 'tsyringe';
 
 
 class ListCategoryByIDController {
 
-    constructor(private listCategoryByIDUseCase: ListCategoryByIDUseCase) { }
-
-    handle(request: Request, response: Response) {
+    async handle(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
 
-        const listCategoryByID = this.listCategoryByIDUseCase.execute({ id })
+        const listCategoryByIDUseCase = container.resolve(ListCategoryByIDUseCase);
+
+        const listCategoryByID = await listCategoryByIDUseCase.execute({ id });
+        
         if (!listCategoryByID) {
-            return response.status(500).json('error: category[ID] not exists')
+            return response.status(500).json('error: category[ID] not exists');
         }
 
         return response.status(201).json(listCategoryByID);
