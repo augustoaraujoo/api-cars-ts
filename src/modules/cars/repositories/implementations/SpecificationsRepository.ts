@@ -1,57 +1,36 @@
 import { Specification } from "../../entities/Specification";
 import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecificationsRepository";
+import { Repository, getRepository } from 'typeorm';
 
 class SpecificationsRepository implements ISpecificationsRepository {
 
-    private specifications: Specification[]
+    private repository: Repository<Specification>;
 
-    private static INSTANCE: SpecificationsRepository;
-
-    private constructor() {
-        this.specifications = []
+    constructor() {
+        this.repository = getRepository(Specification);
     }
 
-    public static getInstance(): SpecificationsRepository {
-        if (!SpecificationsRepository.INSTANCE) {
-            SpecificationsRepository.INSTANCE = new SpecificationsRepository();
-        }
-        return SpecificationsRepository.INSTANCE;
+    async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+        const specification = this.repository.create(
+            {
+                name,
+                description
+            }
+        );
+        await this.repository.save(specification);
     }
 
-    create({ name, description }: ICreateSpecificationDTO): void {
-        const specification = new Specification();
-
-        Object.assign(specification, {
-            name,
-            description,
-            created_at: new Date()
+    async findByName(name: string): Promise<Specification> {
+        const specification = await this.repository.findOne({
+            name
         })
-
-        this.specifications.push(specification);
+        return specification
     }
-
-    findByName(name: string): Specification {
-        const specification = this.specifications.find(specification => specification.name === name)
-        return specification;
+    async deleteSpecificationByID(id: string):Promise<void> {
+        await this.repository.delete({ id });
     }
-    deleteSpecificationByID(id: string) {
-        const existsSpecification = this.specifications.find(specification => specification.id === id);
-
-        const remove = this.specifications.splice(this.specifications.indexOf(existsSpecification), 1);
-
-        const haveSpecification = this.specifications.filter(specification => specification.id.length <= 0);
-
-        const dontExistsID = this.specifications.find(specification => specification.id !== id);
-
-        if (haveSpecification || dontExistsID) {
-            console.log(this.specifications);
-            return console.error("error");
-        };
-
-        return remove;
-    }
-    list(): Specification[] {
-        return this.specifications;
+    async list(): Promise<Specification[]> {
+        return await this.repository.find();
     }
 }
 

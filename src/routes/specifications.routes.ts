@@ -1,18 +1,17 @@
 import { Router } from 'express';
 
-import { createSpecificationController } from '../modules/cars/useCases/Specification/createSpecification'
-import { deleteSpecificationByIDController } from '../modules/cars/useCases/Specification/deleteSpecification';
-import { listSpecificationsController } from '../modules/cars/useCases/Specification/listSpecifications';
+import { CreateSpecificationController } from '../modules/cars/useCases/Specification/createSpecification/CreateSpecificationController'
+import { DeleteSpecificationByIDController } from '../modules/cars/useCases/Specification/deleteSpecification/DeleteSpecificationByIDController';
+import { ListSpecificationsController } from '../modules/cars/useCases/Specification/listSpecifications/ListSpecificationsController';
 
 const specificationsRouter = Router()
 
-specificationsRouter.post("/", (request, response) => {
-    return createSpecificationController.handle(request, response);
-})
-specificationsRouter.delete("/:id", (request, response) => {
-    return deleteSpecificationByIDController.handle(request, response);
-})
-specificationsRouter.get("/", (request, response) => {
-    return listSpecificationsController.handle(request, response);
-})
+const createSpecificationController = new CreateSpecificationController();
+const deleteSpecificationByIDController = new DeleteSpecificationByIDController();
+const listSpecificationsController = new ListSpecificationsController();
+
+specificationsRouter.post("/", createSpecificationController.handle);
+specificationsRouter.delete("/:id", deleteSpecificationByIDController.handle);
+specificationsRouter.get("/", listSpecificationsController.handle);
+
 export { specificationsRouter }

@@ -2,6 +2,7 @@
 import { ICategoriesRepository } from "../../../repositories/ICategoriesRepository";
 import { inject, injectable } from 'tsyringe'
 import { CategoriesRepository } from "../../../repositories/implementations/CategoriesRepository";
+import { hash } from "bcrypt";
 //import { AppErros } from "@errors/AppErrors";
 
 interface IRequest {

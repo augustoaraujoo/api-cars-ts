@@ -1,10 +1,8 @@
 /* SubTipos : CategoriesRepository & PostgresCategoriesRepository */
 
+import { ICategoryDTO } from '../carsDtos/ICategoryDTO';
 import { Category } from '../entities/Category';
-interface ICategoryDTO {
-    name: string;
-    description: string;
-}
+
 interface ICategoriesRepository {
     create({ name, description }: ICategoryDTO): Promise<void>;
     list(): Promise<Category[]>;
@@ -15,4 +13,4 @@ interface ICategoriesRepository {
 
 }
 
-export { ICategoriesRepository, ICategoryDTO }
+export { ICategoriesRepository }
