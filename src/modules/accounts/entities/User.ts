@@ -7,7 +7,7 @@ class User {
     id: string;
     @Column()
     name: string;
-    
+
     @Column()
     email: string;
     @Column()
@@ -16,7 +16,9 @@ class User {
     driver_license: string;
     @Column()
     isAdmin: boolean;
-    
+    @Column()
+    avatar: string;
+
     @CreateDateColumn()
     created_at: Date;
 
