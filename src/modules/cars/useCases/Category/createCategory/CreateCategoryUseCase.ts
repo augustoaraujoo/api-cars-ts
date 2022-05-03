@@ -1,10 +1,8 @@
 
-import { ICategoriesRepository } from "../../../repositories/ICategoriesRepository";
 import { inject, injectable } from 'tsyringe'
-import { CategoriesRepository } from "../../../repositories/implementations/CategoriesRepository";
-import { hash } from "bcrypt";
-//import { AppErros } from "@errors/AppErrors";
-import { AppError } from '../../../../../errors/AppError';
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { CategoriesRepository } from "@modules/cars/repositories/implementations/CategoriesRepository";
+import { AppError } from '@errors/AppError';
 
 interface IRequest {
     name: string,
@@ -21,7 +19,7 @@ class CreateCategoryUseCase {
         const categoryAlreadyExists = await this.categoriesRepository.findByName(name);
 
         if (categoryAlreadyExists) {
-            throw new AppError("Category already exists!",401);
+            throw new AppError("Category already exists!", 401);
         }
 
         this.categoriesRepository.create({ name, description });

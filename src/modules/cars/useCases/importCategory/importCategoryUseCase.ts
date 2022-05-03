@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
-import { CategoriesRepository } from '../../repositories/implementations/CategoriesRepository';
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { CategoriesRepository } from "@modules/cars/repositories/implementations/CategoriesRepository";
 import { parse } from 'csv-parse';
 import { inject, injectable } from 'tsyringe';
 

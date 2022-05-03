@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
-import { CreateSpecificationController } from '../modules/cars/useCases/Specification/createSpecification/CreateSpecificationController'
-import { DeleteSpecificationByIDController } from '../modules/cars/useCases/Specification/deleteSpecification/DeleteSpecificationByIDController';
-import { ListSpecificationsController } from '../modules/cars/useCases/Specification/listSpecifications/ListSpecificationsController';
+import { CreateSpecificationController } from '@modules/cars/useCases/Specification/createSpecification/CreateSpecificationController'
+import { DeleteSpecificationByIDController } from '@modules/cars/useCases/Specification/deleteSpecification/DeleteSpecificationByIDController';
+import { ListSpecificationsController } from '@modules/cars/useCases/Specification/listSpecifications/ListSpecificationsController';
 
 const specificationsRouter = Router()
 
