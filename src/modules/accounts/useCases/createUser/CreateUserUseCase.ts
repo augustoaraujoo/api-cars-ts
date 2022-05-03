@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 import { hash } from 'bcrypt';
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
-import { UsersRepositories } from "@modules/accounts/repositories/implementations/UsersRepositories";
+import { UsersRepositories } from "@modules/accounts/infra/typeorm/repositories/UsersRepositories";
 import { IUsersRepositories } from "@modules/accounts/repositories/IUsersRepositories";
-import { AppError } from '@errors/AppError';
+import { AppError } from '@shared/errors/AppError';
 
 @injectable()
 class CreateUserUseCase {

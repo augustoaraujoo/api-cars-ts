@@ -8,9 +8,7 @@
     "migrations": [
         "./src/database/migrations/*.ts"
     ],
-    "entities": [
-        "./src/modules/**/*.ts"
-    ],
+    "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
     "cli": {
         "migrationsDir": "./src/database/migrations"
     }

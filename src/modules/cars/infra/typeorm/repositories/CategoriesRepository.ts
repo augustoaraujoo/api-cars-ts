@@ -1,7 +1,7 @@
-import { Category } from "../../entities/Category";
-import { ICategoriesRepository } from "../ICategoriesRepository";
+import { Category } from "../entities/Category";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 import { getRepository, Repository } from "typeorm";
-import { ICategoryDTO } from "../../carsDtos/ICategoryDTO";
+import { ICategoryDTO } from "@modules/cars/carsDtos/ICategoryDTO";
 
 class CategoriesRepository implements ICategoriesRepository {
 

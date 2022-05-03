@@ -1,7 +1,7 @@
 /* SubTipos : CategoriesRepository & PostgresCategoriesRepository */
 
 import { ICategoryDTO } from '../carsDtos/ICategoryDTO';
-import { Category } from '../entities/Category';
+import { Category } from '../infra/typeorm/entities/Category';
 
 interface ICategoriesRepository {
     create({ name, description }: ICategoryDTO): Promise<void>;

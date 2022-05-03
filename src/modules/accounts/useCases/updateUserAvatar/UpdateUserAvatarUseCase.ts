@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { UsersRepositories } from "@modules/accounts/repositories/implementations/UsersRepositories";
+import { UsersRepositories } from "@modules/accounts/infra/typeorm/repositories/UsersRepositories";
 import { IUsersRepositories } from "@modules/accounts/repositories/IUsersRepositories";
 import { deleteFile } from "@utils/file"
 interface IRequest {
