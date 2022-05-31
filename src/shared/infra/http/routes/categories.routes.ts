@@ -6,6 +6,8 @@ import { ListCategoriesController } from '@modules/cars/useCases/Category/listCa
 import { DeleteCategoryController } from '@modules/cars/useCases/Category/deleteCategory/DeleteCategoryController';
 import { ListCategoryByIDController } from '@modules/cars/useCases/Category/listCategoryByID/listCategoryByIDController';
 import { ImportCategoryController } from '@modules/cars/useCases/importCategory/importCategoryController';
+import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated';
+import { ensureAdmin } from '../middlewares/ensureAdmin';
 
 const categoriesRoutes = Router();
 
@@ -22,10 +24,10 @@ const listCategoriesController = new ListCategoriesController();
 const listCategoryByIDController = new ListCategoryByIDController();
 const importCategoryController = new ImportCategoryController();
 
-categoriesRoutes.post("/", createCategoryController.handle);
+categoriesRoutes.post("/", ensureAuthenticated, ensureAdmin, createCategoryController.handle);
 categoriesRoutes.get("/", listCategoriesController.handle);
 categoriesRoutes.get("/:id", listCategoryByIDController.handle);
 categoriesRoutes.delete("/:id", deleteCategoryController.handle);
-categoriesRoutes.post("/import", upload.single("file"), importCategoryController.handle);
+categoriesRoutes.post("/import", ensureAuthenticated, ensureAdmin, upload.single("file"), importCategoryController.handle);
 
 export { categoriesRoutes }

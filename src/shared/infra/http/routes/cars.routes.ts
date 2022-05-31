@@ -1,11 +1,19 @@
 import { Request, Response, Router } from "express";
-import { CreateCategoryController } from '@modules/cars/useCases/Category/createCategory/CreateCategoryController';
+import { CreateCarController } from "@modules/cars/useCases/CreateCar/CreateCarController";
+import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated';
+import { ensureAdmin } from "../middlewares/ensureAdmin";
+import { ListAvailableCarsController } from "@modules/cars/useCases/ListAvailableCars/listAvailableCarsController";
 
 const carsRouter = Router();
-const createCategoryController = new CreateCategoryController();
-carsRouter.post("/", createCategoryController.handle);
+const createCarController = new CreateCarController();
+const listAvailableCarsController = new ListAvailableCarsController();
 
-carsRouter.get("/", (request: Request, response: Response)=> {
-    return response.status(201).json("rota cars funcionando ❤️‍🔥")
-})
+carsRouter.post("/",
+    ensureAuthenticated,
+    ensureAdmin,
+    createCarController.handle
+);
+
+carsRouter.get("/available", listAvailableCarsController.handle);
+
 export { carsRouter }
