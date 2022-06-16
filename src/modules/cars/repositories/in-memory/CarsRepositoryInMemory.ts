@@ -2,6 +2,7 @@ import { ICreateCarsDTO } from '@modules/cars/carsDtos/ICreateCarsDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 class CarsRepositoryInMemory implements ICarsRepository {
+    
     async findAvailable(
         brand?: string,
         category_id?: string,
@@ -22,6 +23,9 @@ class CarsRepositoryInMemory implements ICarsRepository {
     }
 
     cars: Car[] = [];
+    async findById(car_id: string): Promise<Car> {
+        return this.cars.find((car) => car.id === car_id);
+    }
     async create({
         brand,
         category_id,

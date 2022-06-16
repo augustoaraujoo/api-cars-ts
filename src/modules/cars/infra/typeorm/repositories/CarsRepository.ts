@@ -4,11 +4,16 @@ import { Car } from '../entities/Car';
 import { getRepository, Repository } from 'typeorm';
 
 class CarsRepository implements ICarsRepository {
+    
     private repository = new Repository<Car>();
 
     constructor() {
         this.repository = getRepository(Car);
     }
+    async findById(car_id: string): Promise<Car> {
+       throw new Error("");
+    }
+    
     async findAvailable(brand: string, category_id?: string, name?: string): Promise<Car[]> {
         const carsQuery = await this.repository
             .createQueryBuilder("c")
