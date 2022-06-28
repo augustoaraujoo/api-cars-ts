@@ -1,4 +1,4 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { UsersRepositories } from "@modules/accounts/infra/typeorm/repositories/UsersRepositories";
 import { IUsersRepositories } from "@modules/accounts/repositories/IUsersRepositories";
 import { compare } from 'bcrypt';
@@ -16,6 +16,7 @@ interface IResponse {
     };
     token: string
 }
+@injectable()
 class AuthenticateUserUseCase {
 
     constructor(@inject(UsersRepositories) private usersRepositories: IUsersRepositories) { }
