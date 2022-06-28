@@ -2,7 +2,7 @@ import { ICreateCarsDTO } from '@modules/cars/carsDtos/ICreateCarsDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 class CarsRepositoryInMemory implements ICarsRepository {
-    
+
     async findAvailable(
         brand?: string,
         category_id?: string,
@@ -12,8 +12,8 @@ class CarsRepositoryInMemory implements ICarsRepository {
             if (
                 car.available === true ||
                 ((brand && car.brand === brand) ||
-                (category_id && car.category_id === category_id) ||
-                (name && car.name === name))
+                    (category_id && car.category_id === category_id) ||
+                    (name && car.name === name))
             ) {
                 return car;
             }
@@ -33,7 +33,9 @@ class CarsRepositoryInMemory implements ICarsRepository {
         description,
         fine_amount,
         license_plate,
-        name }: ICreateCarsDTO): Promise<Car> {
+        name,
+        id
+    }: ICreateCarsDTO): Promise<Car> {
         const cars = new Car();
         Object.assign(cars, {
             brand,
@@ -42,7 +44,8 @@ class CarsRepositoryInMemory implements ICarsRepository {
             description,
             fine_amount,
             license_plate,
-            name
+            name,
+            id
         });
         this.cars.push(cars);
         return cars;
