@@ -34,7 +34,7 @@ class AuthenticateUserUseCase {
             throw new AppError("Erro password incorrect!",401);
         }
 
-        const token = sign({}, "c43aCG9X#d24op?F09", {
+        const token = sign({}, "c432REQFD$231", {
             subject: user.id,
             expiresIn: "1d"
         });

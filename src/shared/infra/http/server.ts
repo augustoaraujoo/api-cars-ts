@@ -2,7 +2,7 @@ import "reflect-metadata";
 import express from 'express'
 import "express-async-errors";
 import { createConnection } from "@shared/infra/typeorm";
-
+// npm run typeorm -- migration:create -n CreateCarImage
 import { router } from './routes/index';
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from '../../../swagger.json';
