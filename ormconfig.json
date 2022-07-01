@@ -5,6 +5,7 @@
     "username": "postgres",
     "password": "root",
     "database": "rentx",
+    "synchronize": true,
     "migrations": [
         "./src/shared/infra/typeorm/migrations/*.ts"
     ],

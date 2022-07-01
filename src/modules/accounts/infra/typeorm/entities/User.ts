@@ -3,7 +3,10 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity("users")
 class User {
-    @PrimaryColumn()
+    @PrimaryColumn({
+        type: "uuid",
+        default: uuidV4(),
+    })
     id: string;
     @Column()
     name: string;
@@ -16,7 +19,11 @@ class User {
     driver_license: string;
     @Column()
     isAdmin: boolean;
-    @Column()
+    @Column({
+        type: "varchar",
+        default: "ab",
+        nullable: true,
+    })
     avatar: string;
 
     @CreateDateColumn()

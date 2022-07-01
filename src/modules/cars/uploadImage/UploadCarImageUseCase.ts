@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { CarImage } from "../infra/typeorm/entities/CarImage";
 import { ICarsImagesRepository } from '@modules/cars/repositories/ICarsImagesRepository';
+import { CarsImagesRepository } from "../infra/typeorm/repositories/CarsImagesRepository";
 
 interface IRequest {
     car_id: string;
@@ -8,7 +9,7 @@ interface IRequest {
 }
 @injectable()
 class UploadCarImageUseCase {
-    constructor(@inject("CarImageRepository") 
+    constructor(@inject(CarsImagesRepository) 
     private carImageRepository: ICarsImagesRepository) {}
     
     async execute({ car_id, images_name }: IRequest): Promise<void> {
@@ -20,3 +21,4 @@ class UploadCarImageUseCase {
 }
 
 export { UploadCarImageUseCase}
+

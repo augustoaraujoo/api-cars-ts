@@ -8,7 +8,7 @@ import { AppError } from '@shared/errors/AppError';
 @injectable()
 class CreateUserUseCase {
 
-    constructor(@inject("UsersRepositories") private usersRepository: IUsersRepositories) { }
+    constructor(@inject(UsersRepositories) private usersRepository: IUsersRepositories) { }
 
     async execute({ name, email, password, driver_license }: ICreateUserDTO): Promise<void> {
 

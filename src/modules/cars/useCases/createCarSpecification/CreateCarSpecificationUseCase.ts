@@ -3,6 +3,8 @@ import { AppError } from '../../../../shared/errors/AppError';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecificationsRepository';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
+import { CarsRepository } from '@modules/cars/infra/typeorm/repositories/CarsRepository';
+import { SpecificationsRepository } from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository';
 
 interface IRequest {
     car_id: string;
@@ -10,9 +12,9 @@ interface IRequest {
 }
 injectable()
 class CreateCarSpecificationUseCase {
-    constructor(@inject("CarsRepository") 
+    constructor(@inject(CarsRepository) 
         private carsRepository: ICarsRepository,
-        @inject("SpecificationsRepository")
+        @inject(SpecificationsRepository)
         private specificationsRepository: ISpecificationsRepository
     ) { }
     async execute({ car_id, specifications_id }: IRequest): Promise<Car> {

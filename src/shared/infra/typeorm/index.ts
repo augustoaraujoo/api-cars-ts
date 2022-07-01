@@ -23,6 +23,7 @@ async () => await createConnection({
     username: "postgres",
     password: "root",
     database: "rentx",
+     synchronize: true,
 });
 
 export { createConnection }

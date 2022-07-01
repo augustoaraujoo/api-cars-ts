@@ -4,7 +4,10 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 @Entity("categories")
 class Category {
 
-    @PrimaryColumn()
+    @PrimaryColumn({
+        type: "uuid",
+        default: uuidV4(),
+    })
     id?: string;
 
     @Column()
