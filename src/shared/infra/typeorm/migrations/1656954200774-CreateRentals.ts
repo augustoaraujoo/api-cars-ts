@@ -3,7 +3,6 @@ import {MigrationInterface, QueryRunner, Table} from "typeorm";
 export class CreateRentals1656777776531 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
 
         await queryRunner.createTable(
             new Table({
@@ -13,13 +12,10 @@ export class CreateRentals1656777776531 implements MigrationInterface {
                 {
                   name: "car_id",
                   type: "uuid",
-                  default: "uuid_generate_v4()",
                 },
                 {
                   name: "user_id",
                   type: "uuid",
-                  default: "uuid_generate_v4()",
-
                 },
                 {
                   name: "start_date",

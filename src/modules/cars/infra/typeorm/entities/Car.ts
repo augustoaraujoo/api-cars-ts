@@ -5,7 +5,10 @@ import { Specification } from './Specification';
 
 @Entity("Cars")
 class Car {
-    @PrimaryColumn()
+    @PrimaryColumn({
+        type: "uuid",
+        default: uuidV4(),
+    })
     id: string;
     @Column()
     name: string;

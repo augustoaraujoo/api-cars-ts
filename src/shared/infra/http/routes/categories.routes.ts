@@ -24,7 +24,8 @@ const listCategoriesController = new ListCategoriesController();
 const listCategoryByIDController = new ListCategoryByIDController();
 const importCategoryController = new ImportCategoryController();
 
-categoriesRoutes.post("/", ensureAuthenticated, ensureAdmin, createCategoryController.handle);
+categoriesRoutes.post("/",
+createCategoryController.handle);
 categoriesRoutes.get("/", listCategoriesController.handle);
 categoriesRoutes.get("/:id", listCategoryByIDController.handle);
 categoriesRoutes.delete("/:id", deleteCategoryController.handle);
