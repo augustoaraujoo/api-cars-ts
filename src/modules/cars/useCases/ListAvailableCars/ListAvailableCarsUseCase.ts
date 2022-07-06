@@ -1,7 +1,8 @@
+import "reflect-metadata";
+import { inject, injectable } from 'tsyringe';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { CarsRepository } from '@modules/cars/infra/typeorm/repositories/CarsRepository';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
-import { inject, injectable } from 'tsyringe';
 interface IRequest {
     brand?: string;
     category_id?: string;

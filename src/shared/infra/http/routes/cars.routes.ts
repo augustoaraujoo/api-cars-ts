@@ -34,8 +34,8 @@ carsRouter.post("/specifications/:id",
     createCarSpecificationController.handle);
 
 carsRouter.post("/images/:id",
-    ensureAdmin,
-    ensureAuthenticated, 
+    //ensureAdmin,
+    //ensureAuthenticated, 
     uploadImage.array("images"),
     uploadCarImageController.handle)
 
