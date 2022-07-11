@@ -33,8 +33,8 @@ describe('CreateCategoryController', () => {
         console.log(token);
 
         const response = await request(app).post('/categories').send({
-            name: 'supertest',
-            description: 'supertest',
+            name: 'categories',
+            description: 'categories',
         }).set({
             'Authorization': `Bearer ${token}`
         })

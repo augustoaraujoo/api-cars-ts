@@ -25,7 +25,7 @@ async () => await createConnection({
     username: "postgres",
     password: "root",
     database: process.env.NODE_ENV === "test" ? "test_db" : "rentx",
-     synchronize: true,
+    synchronize: true,
 });
 
 export { createConnection }
