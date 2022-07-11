@@ -6,7 +6,6 @@ class Category {
 
     @PrimaryColumn({
         type: "uuid",
-        default: uuidV4(),
     })
     id?: string;
 

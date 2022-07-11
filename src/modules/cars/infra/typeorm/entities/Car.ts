@@ -7,7 +7,6 @@ import { Specification } from './Specification';
 class Car {
     @PrimaryColumn({
         type: "uuid",
-        default: uuidV4(),
     })
     id: string;
     @Column()

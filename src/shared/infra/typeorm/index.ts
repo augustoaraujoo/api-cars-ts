@@ -13,16 +13,18 @@
 //   );
 // };
 
+
+//? test_db
 import {createConnection} from "typeorm";
 
 
 async () => await createConnection({
     type: "postgres",
     port: 5433,
-    host: "localhost",
+    host: process.env.NODE_ENV === "test" ? "localhost" : "localhost",
     username: "postgres",
     password: "root",
-    database: "rentx",
+    database: process.env.NODE_ENV === "test" ? "test_db" : "rentx",
      synchronize: true,
 });
 

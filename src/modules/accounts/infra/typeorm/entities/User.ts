@@ -4,10 +4,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 @Entity("users")
 class User {
 
-    @PrimaryColumn({
-        type: "uuid",
-        default: uuidV4(),
-    })
+    @PrimaryColumn()
     id: string;
     @Column()
     name: string;
