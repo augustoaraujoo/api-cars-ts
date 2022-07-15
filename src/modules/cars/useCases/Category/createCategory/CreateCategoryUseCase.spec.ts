@@ -6,7 +6,6 @@ let createCategoryUseCase: CreateCategoryUseCase;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe("Create category", () => {
-    console.log("pasta CreateCategoryUseCase.spec.ts");
     
     //antes de executar
     beforeEach(() => {
@@ -28,7 +27,6 @@ describe("Create category", () => {
         // se a categoria foi criada , irá listar seu nome
         const categoryCreated = await categoriesRepositoryInMemory.findByName(category.name)
 
-        console.log(categoryCreated);
         //verificando se minha categoria tem a propriedade id
         expect(categoryCreated).toHaveProperty("id");
     })

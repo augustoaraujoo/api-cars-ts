@@ -5,6 +5,7 @@ import { IRentalRepository } from "@modules/rentals/repositories/IRentalReposito
 import { AppError } from "@shared/errors/AppError";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { inject, injectable } from "tsyringe";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
 dayjs.extend(utc);
 
@@ -18,34 +19,49 @@ class CreateRentalUseCase {
 
     constructor(
         @inject("RentalsRepository") private rentalRepository: IRentalRepository,
-        @inject("DayjsDateProvider") private dateProvider: IDateProvider
+        @inject("DayjsDateProvider") private dateProvider: IDateProvider,
+        @inject("CarsRepository") private carsRepository: ICarsRepository
     ) { }
     async execute({
         car_id,
         expected_return_date,
         user_id }: IRequest): Promise<Rental> {
+        const minimumHour = 24;
 
-        const carUnavailable = await this.rentalRepository.findOpenRentalByCar(car_id);
+        const carUnavailable = await this.rentalRepository.findOpenRentalByCar(
+            car_id
+        );
 
         if (carUnavailable) {
-            throw new AppError("Car unavailable", 401);
+            throw new AppError("Car is unavailable", 400);
         }
 
-        const rentalOpenToUser = await this.rentalRepository.findOpenRentalByUser(user_id);
+        const rentalOpenToUser = await this.rentalRepository.findOpenRentalByUser(
+            user_id
+        );
 
         if (rentalOpenToUser) {
-            throw new AppError("User already has an open rental", 401);
+            throw new AppError("There's a rental in progress for user!", 400);
         }
 
         const dateNow = this.dateProvider.dateNow();
 
-        const compare = this.dateProvider.compareInHours(dateNow, expected_return_date);
+        const compare = this.dateProvider.compareInHours(
+            dateNow,
+            expected_return_date
+        );
 
-        if (compare < 24) {
-            throw new AppError("invalid return time!", 400);
+        if (compare < minimumHour) {
+            throw new AppError("Invalid return time!", 400);
         }
 
-        const rental = await this.rentalRepository.create({ car_id, expected_return_date, user_id })
+        const rental = await this.rentalRepository.create({
+            user_id,
+            car_id,
+            expected_return_date,
+        });
+
+        await this.carsRepository.updateAvailable(car_id, false);
 
         return rental;
     }

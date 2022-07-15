@@ -2,7 +2,6 @@ import { v4 as uuidV4 } from 'uuid';
 import { hash } from 'bcrypt';
 import { createConnection } from 'typeorm';
 
-console.log('admin.ts');
 
 async function create() {
     const connection = await createConnection();
