@@ -3,8 +3,13 @@ import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalRepository } from "../IRentalRepository";
 
 class RentalsRepositoryInMemory implements IRentalRepository {
+    
     rentals: Rental[] = [];
 
+    async findByID(id: string): Promise<Rental> {
+        return this.rentals.find(rental => rental.id === id)
+    }
+    
     create({ car_id, expected_return_date, user_id }: ICreateRentalDTO): Promise<Rental> {
         const rental = new Rental();
         Object.assign(rental, {
