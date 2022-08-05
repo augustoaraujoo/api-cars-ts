@@ -4,10 +4,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
-    "baseUrl": "src/",
-    "types": [
-      "node"
-    ],
+    "baseUrl": "./src",
+    "types": ["node"],
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
@@ -20,9 +18,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-    },
-  "exclude": [
-    "node_modules"
-  ]
-  
+  },
+  "include": ["**/*"],
+
+  "exclude": ["node_modules"]
 }

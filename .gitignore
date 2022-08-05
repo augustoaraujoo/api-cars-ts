@@ -1,4 +1,9 @@
-.vscode
 node_modules
-/dist
+.vscode
+tmp/*
+coverage
+.env
+!tmp/.gitkeep
+dist
+ormconfig.json
 package-lock.json
